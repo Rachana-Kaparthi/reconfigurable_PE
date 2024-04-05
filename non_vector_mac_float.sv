@@ -1,7 +1,7 @@
 // ** This will perform the functionality of a*b+c ** // 
 `timescale 1ns/1ps
 
-module mac #(parameter E_WIDTH=5, parameter M_WIDTH=10, parameter I_WIDTH= M_WIDTH +E_WIDTH +1)
+module non_vector_mac_float #(parameter E_WIDTH=5, parameter M_WIDTH=10, parameter I_WIDTH= M_WIDTH +E_WIDTH +1)
 	( input [I_WIDTH-1:0] a,b,c,
 	  output   [I_WIDTH-1:0]  out );
 

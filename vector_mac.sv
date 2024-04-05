@@ -30,20 +30,21 @@
 //`endif
     
 
-module  vector_MAC_int #(parameter REG_WIDTH = 16, VECTOR = 8) (clk,a_n_1,b_n_1,c_n_1,a_n,b_n,c_ab);
+module  vector_MAC_int #(parameter REG_WIDTH = 16, VECTOR = 8) (clk,a_n_1,b_n_1,c_n_1,c_ab);
     
     input clk;
     input [REG_WIDTH-1:0] a_n_1[VECTOR - 1:0] ;
     input [REG_WIDTH-1:0] b_n_1[ VECTOR-1: 0] ;
-    input [REG_WIDTH-1:0] c_n_1[VECTOR - 1:0] ;
-    output logic [REG_WIDTH-1:0] a_n[VECTOR - 1:0]; //NEED NOT BE REG, JUST USED HERE TO SIMPLIFY
-    output logic [REG_WIDTH-1:0] b_n[ VECTOR-1: 0]; // POINT OF OPTIMISATION, CAN REMOVE REG
+    input [(2*INPUT_LENGTH-1):0] c_n_1[VECTOR - 1:0] ;
+    // output logic [REG_WIDTH-1:0] a_n[VECTOR - 1:0]; //NEED NOT BE REG, JUST USED HERE TO SIMPLIFY
+    // output logic [REG_WIDTH-1:0] b_n[ VECTOR-1: 0]; // POINT OF OPTIMISATION, CAN REMOVE REG
     output logic [REG_WIDTH-1:0] c_ab[VECTOR - 1:0];
 
     genvar j;
     generate
         for(j=0;j<VECTOR;j=j+1) begin 
-        always@(posedge clk) begin
+        // always@(posedge clk)
+            begin
             c_ab[j] <=  ( a_n_1[j] * b_n_1[j]) + c_n_1[j];
             end
     end
@@ -58,14 +59,14 @@ endgenerate
 endmodule
 
 
-module  vector_MAC_float #(parameter VECTOR = 8,E_WIDTH = 5, M_WIDTH = 10, I_WIDTH= M_WIDTH +E_WIDTH +1) (clk,a_n_1,b_n_1,c_n_1,a_n,b_n,c_ab);
+module  vector_MAC_float #(parameter VECTOR = 8,E_WIDTH = 5, M_WIDTH = 10, I_WIDTH= M_WIDTH +E_WIDTH +1) (clk,a_n_1,b_n_1,c_n_1,c_ab);
     
     input clk;
     input [I_WIDTH-1:0] a_n_1[VECTOR - 1:0] ;
     input [I_WIDTH-1:0] b_n_1[ VECTOR-1: 0] ;
     input [I_WIDTH-1:0] c_n_1[VECTOR - 1:0] ;
-    output logic [I_WIDTH-1:0] a_n[VECTOR - 1:0]; //NEED NOT BE REG, JUST USED HERE TO SIMPLIFY
-    output logic [I_WIDTH-1:0] b_n[ VECTOR-1: 0]; // POINT OF OPTIMISATION, CAN REMOVE REG
+    // output logic [I_WIDTH-1:0] a_n[VECTOR - 1:0]; //NEED NOT BE REG, JUST USED HERE TO SIMPLIFY
+    // output logic [I_WIDTH-1:0] b_n[ VECTOR-1: 0]; // POINT OF OPTIMISATION, CAN REMOVE REG
     output logic [I_WIDTH-1:0] c_ab[VECTOR - 1:0];
 
     genvar j;
