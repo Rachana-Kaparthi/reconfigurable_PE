@@ -3,7 +3,7 @@
 `include "non_vector_mac_float.sv"
 `include "non_vector_mac_int.sv"
 
-module top_module #(parameter INPUT_BITWIDTH = 8,parameter VECTOR_LENGTH =1,
+module top_module #(parameter INPUT_LENGTH = 8,parameter VECTOR_LENGTH =1,
 parameter E_WIDTH=5, parameter M_WIDTH=10, parameter I_WIDTH= M_WIDTH +E_WIDTH +1)(mode, reset, clk, a, b, c, out);
 //mode =  00_0 -> non_vector integer addition
 //mode =  01_0 -> non_vector integer subtraction
@@ -59,7 +59,7 @@ generate
             end
             else if(mode[2:1]==2'b01) //subtraction
             begin 
-                c[i][INPUT_BITWIDTH-1] = ~c[i][INPUT_BITWIDTH-1];
+                c[i][INPUT_LENGTH-1] = ~c[i][INPUT_LENGTH-1];
                 non_vector_mac_float #(.E_WIDTH(E_WIDTH),.M_WIDTH(M_WIDTH),.I_WIDTH(I_WIDTH))(.a(a[i]),.b(32'h0x3f800000),.c(c[i]),.out(out[i]));
             end
             else if(mode[2:1]==2'b10) //multiplication
